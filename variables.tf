@@ -5,9 +5,13 @@ variable "aws_region" {
 
 # --- DNS --- #
 
+
 variable "domain_name" {
   description = "DNS domain name"
-  default     = "example.com"
+}
+
+variable "zone_id" {
+  description = "Route 53 zone ID"
 }
 
 # --- Tags --- #
