@@ -135,3 +135,8 @@ variable "wait_for_deployment" {
   default     = "false"
   description = "When set to 'true' the resource will wait for the distribution status to change from InProgress to Deployed"
 }
+
+
+variable "force_destroy" {
+  default = "true"
+  }
