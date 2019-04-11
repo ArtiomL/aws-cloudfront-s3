@@ -190,7 +190,7 @@ resource "aws_lambda_function" "main" {
 
 data "archive_file" "main" {
   type        = "zip"
-  source_file = "${var.source_file}"
+  source_file = "${var.source_file == "" ? "${path.module}/index.js" : var.source_file}"
   output_path = "source.zip"
 }
 
