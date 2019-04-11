@@ -176,12 +176,12 @@ resource "aws_cloudfront_distribution" "main" {
 # Lambda@Edge
 resource "aws_lambda_function" "main" {
   function_name    = "fun${var.tag_name}${var.tag_environment}"
-  filename         = "source.zip"
+  filename         = "${path.module}/source.zip"
   handler          = "${var.handler}"
   runtime          = "${var.runtime}"
   publish          = "true"
   role             = "${aws_iam_role.lambda.arn}"
-  source_code_hash = "${base64sha256(file("source.zip"))}"
+  source_code_hash = "${base64sha256(file("${path.module}/source.zip"))}"
 
   tags = "${merge(local.tags, var.tags_shared, map(
     "Name", "fun${var.tag_name}${var.tag_environment}"
@@ -191,7 +191,7 @@ resource "aws_lambda_function" "main" {
 data "archive_file" "main" {
   type        = "zip"
   source_file = "${var.source_file}"
-  output_path = "source.zip"
+  output_path = "${path.module}/source.zip"
 }
 
 # DNS alias record
