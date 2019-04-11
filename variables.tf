@@ -1,11 +1,17 @@
+# Input Variables
+
 variable "aws_region" {
   description = "AWS region"
   default     = "eu-west-1"
 }
 
-# --- DNS --- #
+# S3
+variable "force_destroy" {
+  description = "All objects should be deleted from the bucket so that the bucket can be destroyed without error"
+  default     = "true"
+}
 
-
+# DNS
 variable "domain_name" {
   description = "DNS domain name"
 }
@@ -14,11 +20,99 @@ variable "zone_id" {
   description = "Route 53 zone ID"
 }
 
-# --- Tags --- #
+# CloudFront
+variable "enabled" {
+  description = "Whether the distribution is enabled to accept end user requests for content"
+  default     = "true"
+}
 
+variable "is_ipv6_enabled" {
+  description = "Whether IPv6 is enabled for the distribution"
+  default     = "true"
+}
+
+variable "minimum_protocol_version" {
+  description = "The minimum TLS version that you want CloudFront to use for HTTPS connections"
+  default     = "TLSv1_2016"
+}
+
+variable "origin_path" {
+  description = "Causes CloudFront to request content from a directory in your S3 bucket"
+  default     = ""
+}
+
+variable "compress" {
+  description = "Compress content for web requests that include Accept-Encoding: gzip in the request header"
+  default     = "true"
+}
+
+variable "default_root_object" {
+  description = "An object CloudFront returns when the end user requests the root URL"
+  default     = "index.html"
+}
+
+variable "comment" {
+  description = "Distribution comments"
+  default     = "Managed by Terraform"
+}
+
+variable "price_class" {
+  description = "The price class for this distribution (PriceClass_All, PriceClass_200, PriceClass_100)"
+  default     = "PriceClass_All"
+}
+
+variable "viewer_protocol_policy" {
+  description = "The protocol users can use to access the origin files (allow-all, https-only, redirect-to-https)"
+  default     = "redirect-to-https"
+}
+
+variable "allowed_methods" {
+  description = "Controls which HTTP methods CloudFront processes and forwards to your S3 bucket"
+  type        = "list"
+  default     = ["GET", "HEAD"]
+}
+
+variable "cached_methods" {
+  description = "Controls whether CloudFront caches responses to requests using the specified HTTP methods"
+  type        = "list"
+  default     = ["GET", "HEAD"]
+}
+
+variable "default_ttl" {
+  description = "Default amount of time (in seconds) an object is in a CloudFront cache"
+  default     = "3600"
+}
+
+variable "min_ttl" {
+  description = "Minimum amount of time you want objects to stay in CloudFront caches"
+  default     = "0"
+}
+
+variable "max_ttl" {
+  description = "Maximum amount of time an object is in a CloudFront cache"
+  default     = "86400"
+}
+
+variable "geo_restriction_type" {
+  description = "The method to restrict distribution of your content by country (none, whitelist, blacklist)"
+  default     = "none"
+}
+
+variable "geo_restriction_locations" {
+  description = "ISO 3166-1-alpha-2 country codes"
+  type        = "list"
+  default     = []
+}
+
+variable "wait_for_deployment" {
+  description = "Wait for the distribution status to change from InProgress to Deployed"
+  default     = "false"
+}
+
+# Tags
 variable "tag_name" {
   description = "Name tag"
-  default     = "S3"
+  default     = "AWSLabs"
 }
 
 variable "tag_environment" {
@@ -38,105 +132,3 @@ variable "tags_shared" {
     Project      = "Mayhem"
   }
 }
-
-variable "enabled" {
-  default     = "true"
-  description = "Select Enabled if you want CloudFront to begin processing requests as soon as the distribution is created, or select Disabled if you do not want CloudFront to begin processing requests after the distribution is created."
-}
-
-variable "minimum_protocol_version" {
-  description = "Cloudfront TLS minimum protocol version"
-  default     = "TLSv1"
-}
-
-variable "origin_path" {
-  description = "An optional element that causes CloudFront to request your content from a directory in your Amazon S3 bucket or your custom origin. It must begin with a /. Do not add a / at the end of the path."
-  default     = ""
-}
-
-variable "origin_force_destroy" {
-  default     = "true"
-  description = "Delete all objects from the bucket  so that the bucket can be destroyed without error (e.g. `true` or `false`)"
-}
-
-variable "compress" {
-  default     = "true"
-  description = "Compress content for web requests that include Accept-Encoding: gzip in the request header"
-}
-
-variable "is_ipv6_enabled" {
-  default     = "true"
-  description = "State of CloudFront IPv6"
-}
-
-variable "default_root_object" {
-  default     = "index.html"
-  description = "Object that CloudFront return when requests the root URL"
-}
-
-variable "comment" {
-  default     = "Managed by Terraform"
-  description = "Comment for the origin access identity"
-}
-
-variable "price_class" {
-  default     = "PriceClass_All"
-  description = "Price class for this distribution: `PriceClass_All`, `PriceClass_200`, `PriceClass_100`"
-}
-
-variable "viewer_protocol_policy" {
-  description = "allow-all, redirect-to-https"
-  default     = "redirect-to-https"
-}
-
-variable "allowed_methods" {
-  type        = "list"
-  default     = ["GET", "HEAD"]
-  description = "List of allowed methods (e.g. GET, PUT, POST, DELETE, HEAD) for AWS CloudFront"
-}
-
-variable "cached_methods" {
-  type        = "list"
-  default     = ["GET", "HEAD"]
-  description = "List of cached methods (e.g. GET, PUT, POST, DELETE, HEAD)"
-}
-
-variable "default_ttl" {
-  default     = "3600"
-  description = "Default amount of time (in seconds) that an object is in a CloudFront cache"
-}
-
-variable "min_ttl" {
-  default     = "0"
-  description = "Minimum amount of time that you want objects to stay in CloudFront caches"
-}
-
-variable "max_ttl" {
-  default     = "86400"
-  description = "Maximum amount of time (in seconds) that an object is in a CloudFront cache"
-}
-
-variable "geo_restriction_type" {
-  # e.g. "whitelist"
-  default     = "none"
-  description = "Method that use to restrict distribution of your content by country: `none`, `whitelist`, or `blacklist`"
-}
-
-variable "geo_restriction_locations" {
-  type = "list"
-
-  # e.g. ["US", "CA", "GB", "DE"]
-  default     = []
-  description = "List of country codes for which  CloudFront either to distribute content (whitelist) or not distribute your content (blacklist)"
-}
-
-variable "wait_for_deployment" {
-  type        = "string"
-  default     = "false"
-  description = "When set to 'true' the resource will wait for the distribution status to change from InProgress to Deployed"
-}
-
-
-variable "force_destroy" {
-  default = "true"
-  }
