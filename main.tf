@@ -176,12 +176,12 @@ resource "aws_cloudfront_distribution" "main" {
 # Lambda@Edge
 resource "aws_lambda_function" "main" {
   function_name    = "fun${var.tag_name}${var.tag_environment}"
-  filename         = "source.zip"
+  filename         = "${data.archive_file.main.output_path}"
   handler          = "${var.handler}"
   runtime          = "${var.runtime}"
   publish          = "true"
   role             = "${aws_iam_role.lambda.arn}"
-  source_code_hash = "${base64sha256(file("source.zip"))}"
+  source_code_hash = "${data.archive_file.main.output_base64sha256}"
 
   tags = "${merge(local.tags, var.tags_shared, map(
     "Name", "fun${var.tag_name}${var.tag_environment}"
