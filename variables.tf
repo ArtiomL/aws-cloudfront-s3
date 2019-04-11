@@ -111,8 +111,8 @@ variable "wait_for_deployment" {
 
 # Lambda@Edge
 variable "source_file" {
-  description = "Package this file into the function archive"
-  default     = "index.js"
+  description = "Package this file into the function archive (index.js local to the module path is used by default)"
+  default     = ""
 }
 
 variable "handler" {
