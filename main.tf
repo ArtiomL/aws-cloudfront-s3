@@ -56,71 +56,7 @@ data "aws_iam_policy_document" "main" {
   }
 }
 
-# CloudFront
-resource "aws_cloudfront_origin_access_identity" "main" {
-  comment = "Access ${var.domain_name} S3 bucket content only through CloudFront"
-}
-
-resource "aws_cloudfront_distribution" "main" {
-  origin {
-    domain_name = "${aws_s3_bucket.main.bucket_regional_domain_name}"
-    origin_id   = "${aws_s3_bucket.main.bucket_regional_domain_name}"
-    origin_path = "${var.origin_path}"
-
-    s3_origin_config {
-      origin_access_identity = "${aws_cloudfront_origin_access_identity.main.cloudfront_access_identity_path}"
-    }
-  }
-
-  enabled             = "${var.enabled}"
-  is_ipv6_enabled     = "${var.is_ipv6_enabled}"
-  comment             = "${var.comment}"
-  default_root_object = "${var.default_root_object}"
-  price_class         = "${var.price_class}"
-
-  aliases = ["${var.domain_name}"]
-
-  default_cache_behavior {
-    allowed_methods  = "${var.allowed_methods}"
-    cached_methods   = "${var.cached_methods}"
-    target_origin_id = "${aws_s3_bucket.main.bucket_regional_domain_name}"
-    compress         = "${var.compress}"
-
-    forwarded_values {
-      query_string = false
-
-      cookies {
-        forward = "none"
-      }
-    }
-
-    viewer_protocol_policy = "${var.viewer_protocol_policy}"
-    default_ttl            = "${var.default_ttl}"
-    min_ttl                = "${var.min_ttl}"
-    max_ttl                = "${var.max_ttl}"
-  }
-
-  restrictions {
-    geo_restriction {
-      restriction_type = "${var.geo_restriction_type}"
-      locations        = "${var.geo_restriction_locations}"
-    }
-  }
-
-  viewer_certificate {
-    acm_certificate_arn            = "${aws_acm_certificate.main.arn}"
-    ssl_support_method             = "sni-only"
-    minimum_protocol_version       = "${var.minimum_protocol_version}"
-    cloudfront_default_certificate = false
-  }
-
-  wait_for_deployment = "${var.wait_for_deployment}"
-
-  tags = "${merge(local.tags, var.tags_shared, map(
-    "Name", "dist${var.tag_name}${var.tag_environment}"
-  ))}"
-}
-
+# ACM
 resource "aws_acm_certificate" "main" {
   provider          = "aws.acm"
   domain_name       = "${var.domain_name}"
@@ -150,7 +86,71 @@ resource "aws_acm_certificate_validation" "main" {
   validation_record_fqdns = ["${aws_route53_record.acm.fqdn}"]
 }
 
-# DNS records
+# CloudFront
+resource "aws_cloudfront_origin_access_identity" "main" {
+  comment = "Access ${var.domain_name} S3 bucket content only through CloudFront"
+}
+
+resource "aws_cloudfront_distribution" "main" {
+  enabled             = "${var.enabled}"
+  is_ipv6_enabled     = "${var.is_ipv6_enabled}"
+  comment             = "${var.comment}"
+  default_root_object = "${var.default_root_object}"
+  price_class         = "${var.price_class}"
+  aliases             = ["${var.domain_name}"]
+
+  viewer_certificate {
+    acm_certificate_arn            = "${aws_acm_certificate.main.arn}"
+    ssl_support_method             = "sni-only"
+    minimum_protocol_version       = "${var.minimum_protocol_version}"
+    cloudfront_default_certificate = false
+  }
+
+  origin {
+    domain_name = "${aws_s3_bucket.main.bucket_regional_domain_name}"
+    origin_path = "${var.origin_path}"
+    origin_id   = "${aws_s3_bucket.main.bucket_regional_domain_name}"
+
+    s3_origin_config {
+      origin_access_identity = "${aws_cloudfront_origin_access_identity.main.cloudfront_access_identity_path}"
+    }
+  }
+
+  default_cache_behavior {
+    allowed_methods  = "${var.allowed_methods}"
+    cached_methods   = "${var.cached_methods}"
+    target_origin_id = "${aws_s3_bucket.main.bucket_regional_domain_name}"
+    compress         = "${var.compress}"
+
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
+
+    viewer_protocol_policy = "${var.viewer_protocol_policy}"
+    default_ttl            = "${var.default_ttl}"
+    min_ttl                = "${var.min_ttl}"
+    max_ttl                = "${var.max_ttl}"
+  }
+
+  restrictions {
+    geo_restriction {
+      restriction_type = "${var.geo_restriction_type}"
+      locations        = "${var.geo_restriction_locations}"
+    }
+  }
+
+  wait_for_deployment = "${var.wait_for_deployment}"
+
+  tags = "${merge(local.tags, var.tags_shared, map(
+    "Name", "dist${var.tag_name}${var.tag_environment}"
+  ))}"
+}
+
+# DNS alias record
 resource "aws_route53_record" "main" {
   zone_id = "${var.zone_id}"
   name    = "${var.domain_name}"
