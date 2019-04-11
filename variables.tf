@@ -125,6 +125,16 @@ variable "runtime" {
   default     = "nodejs8.10"
 }
 
+variable "event_type" {
+  description = "The specific event to trigger the function"
+  default     = "origin-response"
+}
+
+variable "include_body" {
+  description = "Expose the request body to the Lambda function"
+  default     = "false"
+}
+
 # Tags
 variable "tag_name" {
   description = "Name tag"
