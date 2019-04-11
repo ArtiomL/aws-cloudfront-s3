@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias  = "acm"
+  alias  = "us_east_1"
   region = "us-east-1"
 }
 
@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "main" {
 
 # ACM
 resource "aws_acm_certificate" "main" {
-  provider          = "aws.acm"
+  provider          = "aws.us_east_1"
   domain_name       = "${var.domain_name}"
   validation_method = "DNS"
 
@@ -72,7 +72,7 @@ resource "aws_acm_certificate" "main" {
 }
 
 resource "aws_route53_record" "acm" {
-  provider = "aws.acm"
+  provider = "aws.us_east_1"
   zone_id  = "${var.zone_id}"
   name     = "${aws_acm_certificate.main.domain_validation_options.0.resource_record_name}"
   ttl      = 60
@@ -81,7 +81,7 @@ resource "aws_route53_record" "acm" {
 }
 
 resource "aws_acm_certificate_validation" "main" {
-  provider                = "aws.acm"
+  provider                = "aws.us_east_1"
   certificate_arn         = "${aws_acm_certificate.main.arn}"
   validation_record_fqdns = ["${aws_route53_record.acm.fqdn}"]
 }
