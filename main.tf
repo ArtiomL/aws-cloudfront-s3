@@ -56,6 +56,20 @@ data "aws_iam_policy_document" "main" {
   }
 }
 
+data "aws_iam_policy_document" "lambda" {
+  statement {
+    sid    = "LambdaEdgeIAMRole"
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com", "edgelambda.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
+
 # ACM
 resource "aws_acm_certificate" "main" {
   provider          = "aws.us_east_1"
