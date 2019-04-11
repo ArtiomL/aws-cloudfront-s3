@@ -157,12 +157,12 @@ resource "aws_cloudfront_distribution" "main" {
     default_ttl            = "${var.default_ttl}"
     min_ttl                = "${var.min_ttl}"
     max_ttl                = "${var.max_ttl}"
-  }
 
-  lambda_function_association {
-    event_type   = "${var.event_type}"
-    lambda_arn   = "${aws_lambda_function.main.qualified_arn}"
-    include_body = "${var.include_body}"
+    lambda_function_association {
+      event_type   = "${var.event_type}"
+      lambda_arn   = "${aws_lambda_function.main.qualified_arn}"
+      include_body = "${var.include_body}"
+    }
   }
 
   restrictions {
