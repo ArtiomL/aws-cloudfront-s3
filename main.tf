@@ -70,6 +70,15 @@ data "aws_iam_policy_document" "lambda" {
   }
 }
 
+resource "aws_iam_role" "lambda" {
+  name               = "roleLambda${var.tag_name}${var.tag_environment}"
+  assume_role_policy = "${data.aws_iam_policy_document.lambda.json}"
+
+  tags = "${merge(local.tags, var.tags_shared, map(
+    "Name", "roleLambda${var.tag_name}${var.tag_environment}"
+  ))}"
+}
+
 # ACM
 resource "aws_acm_certificate" "main" {
   provider          = "aws.us_east_1"
@@ -162,6 +171,27 @@ resource "aws_cloudfront_distribution" "main" {
   tags = "${merge(local.tags, var.tags_shared, map(
     "Name", "dist${var.tag_name}${var.tag_environment}"
   ))}"
+}
+
+# Lambda@Edge
+resource "aws_lambda_function" "main" {
+  function_name    = "fun${var.tag_name}${var.tag_environment}"
+  filename         = "source.zip"
+  handler          = "${var.handler}"
+  runtime          = "${var.runtime}"
+  publish          = "true"
+  role             = "${aws_iam_role.lambda.arn}"
+  source_code_hash = "${base64sha256(file("source.zip"))}"
+
+  tags = "${merge(local.tags, var.tags_shared, map(
+    "Name", "fun${var.tag_name}${var.tag_environment}"
+  ))}"
+}
+
+data "archive_file" "main" {
+  type        = "zip"
+  source_file = "${var.source_file}"
+  output_path = "source.zip"
 }
 
 # DNS alias record
