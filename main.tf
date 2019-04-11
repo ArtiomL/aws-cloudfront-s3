@@ -159,6 +159,12 @@ resource "aws_cloudfront_distribution" "main" {
     max_ttl                = "${var.max_ttl}"
   }
 
+  lambda_function_association {
+    event_type   = "${var.event_type}"
+    lambda_arn   = "${aws_lambda_function.main.qualified_arn}"
+    include_body = "${var.include_body}"
+  }
+
   restrictions {
     geo_restriction {
       restriction_type = "${var.geo_restriction_type}"
@@ -175,6 +181,7 @@ resource "aws_cloudfront_distribution" "main" {
 
 # Lambda@Edge
 resource "aws_lambda_function" "main" {
+  provider         = "aws.us_east_1"
   function_name    = "fun${var.tag_name}${var.tag_environment}"
   filename         = "${data.archive_file.main.output_path}"
   handler          = "${var.handler}"
