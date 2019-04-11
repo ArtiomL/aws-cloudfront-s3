@@ -109,6 +109,22 @@ variable "wait_for_deployment" {
   default     = "false"
 }
 
+# Lambda@Edge
+variable "source_file" {
+  description = "Package this file into the function archive"
+  default     = "index.js"
+}
+
+variable "handler" {
+  description = "The function entrypoint in your code"
+  default     = "index.handler"
+}
+
+variable "runtime" {
+  description = "Function runtime identifier"
+  default     = "nodejs8.10"
+}
+
 # Tags
 variable "tag_name" {
   description = "Name tag"
