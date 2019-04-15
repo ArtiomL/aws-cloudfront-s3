@@ -1,4 +1,4 @@
-# <img align="center" src="img/cf.svg">&nbsp;&nbsp; aws-cloudfront-s3 &nbsp;&nbsp;<img align="center" src="img/s3.svg">
+# <img align="center" src="img/cf.svg">&nbsp;&nbsp; aws-cloudfront-s3&nbsp;&nbsp;<img align="center" src="img/s3.svg">
 [![Build Status](https://img.shields.io/travis/com/ArtiomL/aws-cloudfront-s3/develop.svg)](https://travis-ci.com/ArtiomL/aws-cloudfront-s3)
 [![Releases](https://img.shields.io/github/release/ArtiomL/aws-cloudfront-s3.svg)](https://github.com/ArtiomL/aws-cloudfront-s3/releases)
 [![Commits](https://img.shields.io/github/commits-since/ArtiomL/aws-cloudfront-s3/latest.svg?label=commits%20since)](https://github.com/ArtiomL/aws-cloudfront-s3/commits/master)
