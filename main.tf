@@ -16,7 +16,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# S3 bucket
+# S3 buckets
 resource "aws_s3_bucket" "main" {
   bucket        = "${var.domain_name}"
   acl           = "private"
@@ -27,8 +27,35 @@ resource "aws_s3_bucket" "main" {
   ))}"
 }
 
+resource "aws_s3_bucket" "logs" {
+  bucket        = "${var.domain_name}.logs"
+  acl           = "private"
+  force_destroy = "${var.force_destroy}"
+
+  lifecycle_rule {
+    id      = "ExpireLogs"
+    enabled = true
+
+    expiration {
+      days = "${var.log_days}"
+    }
+  }
+
+  tags = "${merge(local.tags, var.tags_shared, map(
+    "Name", "buck${var.tag_name}${var.tag_environment}"
+  ))}"
+}
+
 resource "aws_s3_bucket_public_access_block" "main" {
   bucket                  = "${aws_s3_bucket.main.id}"
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_public_access_block" "logs" {
+  bucket                  = "${aws_s3_bucket.logs.id}"
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
@@ -127,6 +154,12 @@ resource "aws_cloudfront_distribution" "main" {
     ssl_support_method             = "sni-only"
     minimum_protocol_version       = "${var.minimum_protocol_version}"
     cloudfront_default_certificate = false
+  }
+
+  logging_config {
+    include_cookies = true
+    bucket          = "${aws_s3_bucket.logs.bucket_regional_domain_name}"
+    prefix          = "CFLogs"
   }
 
   origin {
