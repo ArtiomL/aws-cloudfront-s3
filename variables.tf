@@ -36,6 +36,11 @@ variable "minimum_protocol_version" {
   default     = "TLSv1_2016"
 }
 
+variable "log_days" {
+  description = "The number of days to keep the log files"
+  default     = 7
+}
+
 variable "origin_path" {
   description = "Causes CloudFront to request content from a directory in your S3 bucket"
   default     = ""
