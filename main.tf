@@ -42,7 +42,7 @@ resource "aws_s3_bucket" "logs" {
   }
 
   tags = "${merge(local.tags, var.tags_shared, map(
-    "Name", "buck${var.tag_name}${var.tag_environment}"
+    "Name", "buckLogs${var.tag_name}${var.tag_environment}"
   ))}"
 }
 
