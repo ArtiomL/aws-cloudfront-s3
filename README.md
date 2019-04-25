@@ -20,9 +20,9 @@
 
 Terraform module to provision AWS CloudFront CDN and securely serve HTTPS requests to a static website hosted on Amazon S3. The module creates:
 
-- S3 bucket to host static website content
-- S3 bucket to store CloudFront access log files in
-- Block Public Access settings for both S3 buckets (all four settings set to `true`)
+> S3 bucket to host static website content
+> S3 bucket to store CloudFront access log files in
+> Block Public Access settings for both S3 buckets (all four settings set to `true`)
 
 
 &nbsp;&nbsp;
