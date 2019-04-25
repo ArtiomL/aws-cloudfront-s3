@@ -75,7 +75,7 @@ Terraform module to provision AWS CloudFront CDN and securely serve HTTPS reques
 
 ## Example
 
-```
+```hcl
 # S3, IAM, ACM, CloudFront
 module "aws_cloudfront_s3" {
   source          = "github.com/ArtiomL/aws-cloudfront-s3"
