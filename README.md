@@ -25,7 +25,7 @@ Terraform module to provision AWS CloudFront CDN and securely serve HTTPS reques
 - [Block Public Access](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html) settings for both S3 buckets (all four settings set to `true`)
 - CloudFront [origin access identity](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html)
 - S3 bucket policy to ensure CloudFront OAI has permissions to read files in the S3 bucket, but users don't
-- ACM public SSL/TLS certificate using [DNS validation](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html)
+- ACM public SSL/TLS certificate for your domain, using [DNS validation](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html)
 - CNAME record for ACM validation
 - CloudFront [distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html) with an S3 origin
 - Lambda@Edge [function](index.js) to [customize](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-at-the-edge.html) the content CloudFront delivers
