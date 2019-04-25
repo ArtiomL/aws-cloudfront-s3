@@ -1,5 +1,4 @@
 # <img align="center" src="img/cf.svg">&nbsp;&nbsp; aws-cloudfront-s3&nbsp;&nbsp;<img align="center" src="img/s3.svg">
-[![Build Status](https://img.shields.io/travis/com/ArtiomL/aws-cloudfront-s3/develop.svg)](https://travis-ci.com/ArtiomL/aws-cloudfront-s3)
 [![Releases](https://img.shields.io/github/release/ArtiomL/aws-cloudfront-s3.svg)](https://github.com/ArtiomL/aws-cloudfront-s3/releases)
 [![Commits](https://img.shields.io/github/commits-since/ArtiomL/aws-cloudfront-s3/latest.svg?label=commits%20since)](https://github.com/ArtiomL/aws-cloudfront-s3/commits/master)
 [![Maintenance](https://img.shields.io/maintenance/yes/2019.svg)](https://github.com/ArtiomL/aws-cloudfront-s3/graphs/code-frequency)
@@ -10,6 +9,9 @@
 
 ## Table of Contents
 - [Description](#description)
+- [Input Variables](#description)
+- [Output Values](#description)
+- [Example](#description)
 - [License](LICENSE)
 
 &nbsp;&nbsp;
@@ -18,8 +20,9 @@
 
 AWS CloudFront S3 Terraform module.
 
+&nbsp;&nbsp;
 
-## Inputs
+## Input Variables
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
@@ -39,6 +42,7 @@ AWS CloudFront S3 Terraform module.
 | handler | The function entrypoint in your code | string | `"index.handler"` | no |
 | include\_body | Expose the request body to the Lambda function | string | `"false"` | no |
 | is\_ipv6\_enabled | Whether IPv6 is enabled for the distribution | string | `"true"` | no |
+| log\_days | The number of days to keep the log files | string | `"7"` | no |
 | max\_ttl | Maximum amount of time an object is in a CloudFront cache | string | `"86400"` | no |
 | min\_ttl | Minimum amount of time you want objects to stay in CloudFront caches | string | `"0"` | no |
 | minimum\_protocol\_version | The minimum TLS version that you want CloudFront to use for HTTPS connections | string | `"TLSv1_2016"` | no |
@@ -53,7 +57,9 @@ AWS CloudFront S3 Terraform module.
 | wait\_for\_deployment | Wait for the distribution status to change from InProgress to Deployed | string | `"false"` | no |
 | zone\_id | Route 53 zone ID | string | n/a | yes |
 
-## Outputs
+&nbsp;&nbsp;
+
+## Output Values
 
 | Name | Description |
 |------|-------------|
@@ -65,3 +71,19 @@ AWS CloudFront S3 Terraform module.
 | dist\_id | CloudFront distribution ID |
 | dist\_zone\_id | CloudFront zone ID that can be used to point Route 53 alias records to |
 
+&nbsp;&nbsp;
+
+## Example
+
+```
+# S3, IAM, ACM, CloudFront
+module "aws_cloudfront_s3" {
+  source          = "github.com/ArtiomL/aws-cloudfront-s3"
+  aws_region      = "us-east-1"
+  domain_name     = "artl.dev"
+  source_file     = "index.js"
+  zone_id         = "${aws_route53_zone.main.zone_id}"
+  tag_name        = "AWSLabs"
+  tag_environment = "Dev"
+}
+```
