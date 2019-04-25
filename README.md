@@ -9,16 +9,16 @@
 
 ## Table of Contents
 - [Description](#description)
-- [Input Variables](#description)
-- [Output Values](#description)
-- [Example](#description)
+- [Input Variables](#input-variables)
+- [Output Values](#output-values)
+- [Example](#example)
 - [License](LICENSE)
 
 &nbsp;&nbsp;
 
 ## Description
 
-AWS CloudFront S3 Terraform module.
+Terraform module to provision AWS CloudFront CDN and securely serve HTTPS requests to a static website hosted on S3.
 
 &nbsp;&nbsp;
 
