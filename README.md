@@ -20,11 +20,11 @@
 
 Terraform module to provision AWS CloudFront CDN and securely serve HTTPS requests to a static website hosted on Amazon S3. The module creates:
 
-1. S3 bucket to host static website content
-2. S3 bucket to store CloudFront access log files in
-3. Block Public Access settings for both S3 buckets (all four settings set to `true`)
-4. CloudFront origin access identity
-5. S3 bucket policy to ensure CloudFront OAI has permissions to read files in the S3 bucket, but users don't
+- [S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html) to host static website content
+- S3 bucket to store CloudFront [access log](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html) files in
+- [Block Public Access](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html) settings for both S3 buckets (all four settings set to `true`)
+- CloudFront [origin access identity](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html)
+- S3 bucket policy to ensure CloudFront OAI has permissions to read files in the S3 bucket, but users don't
 
 
 &nbsp;&nbsp;
