@@ -9,6 +9,7 @@
 
 ## Table of Contents
 - [Description](#description)
+	- [Architecture](#architecture)
 - [Input Variables](#input-variables)
 - [Output Values](#output-values)
 - [Example](#example)
@@ -18,7 +19,9 @@
 
 ## Description
 
-Terraform module to provision AWS CloudFront CDN and securely serve HTTPS requests to a static website hosted on Amazon S3. 
+Terraform AWS module to provision CloudFront CDN and securely serve HTTPS requests to a static website hosted on Amazon S3. 
+
+### Architecture
 
 <img align="center" src="img/arc.png">
 
