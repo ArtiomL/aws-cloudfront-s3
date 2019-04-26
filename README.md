@@ -18,7 +18,11 @@
 
 ## Description
 
-Terraform module to provision AWS CloudFront CDN and securely serve HTTPS requests to a static website hosted on Amazon S3. The module creates:
+Terraform module to provision AWS CloudFront CDN and securely serve HTTPS requests to a static website hosted on Amazon S3. 
+
+<img align="center" src="img/arch.svg">
+
+The module creates:
 
 - [S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html) to host static website content
 - S3 bucket to store CloudFront [access log](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html) files in
