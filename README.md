@@ -20,7 +20,7 @@
 
 Terraform module to provision AWS CloudFront CDN and securely serve HTTPS requests to a static website hosted on Amazon S3. 
 
-<img align="center" src="img/arch.png" width="700">
+<img align="center" src="img/arch.png" width="1280">
 
 The module creates:
 
