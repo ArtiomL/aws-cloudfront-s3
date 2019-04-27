@@ -56,7 +56,7 @@ Scanning the website with [HTTP Observatory](https://observatory.mozilla.org/) r
 
 <img src="img/ap.png" width="500">
 
-Use the module variables to specify a filename with custom function code (`source_file`) and CloudFront event (`event_type`).
+Use the module input variables to specify a filename with custom function code (`source_file`) and CloudFront event (`event_type`).
 
 &nbsp;&nbsp;
 
@@ -119,7 +119,7 @@ module "aws_cloudfront_s3" {
   source          = "github.com/ArtiomL/aws-cloudfront-s3"
   aws_region      = "us-east-1"
   domain_name     = "artl.dev"
-  source_file     = "index.js"
+  source_file     = "custom.js"
   zone_id         = "${aws_route53_zone.main.zone_id}"
   tag_name        = "AWSLabs"
   tag_environment = "Dev"
