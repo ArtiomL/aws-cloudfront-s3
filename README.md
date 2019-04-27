@@ -52,6 +52,9 @@ Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'
 Feature-Policy: geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; speaker 'self'; vibrate 'none'; fullscreen 'self'; payment 'none';
 ```
 
+Scanning with [HTTP Observatory](https://observatory.mozilla.org/):
+
+<img src="img/ap.png" width="500">
 
 &nbsp;&nbsp;
 
