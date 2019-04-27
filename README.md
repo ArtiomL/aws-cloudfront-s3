@@ -56,7 +56,7 @@ Scanning the website with [HTTP Observatory](https://observatory.mozilla.org/) r
 
 <img src="img/ap.png" width="500">
 
-Use the module input variables to specify a filename with custom function code (`source_file`) and the CloudFront event (`event_type`) to trigger it.
+Use the module input variables to specify a filename with custom function code (`source_file`) and the CloudFront event to trigger it (`event_type`).
 
 &nbsp;&nbsp;
 
