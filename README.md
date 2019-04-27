@@ -54,9 +54,9 @@ Feature-Policy: geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'no
 
 Scanning the website with [HTTP Observatory](https://observatory.mozilla.org/) results in:
 
-<img src="img/ap.png" width="700">
+<img src="img/ap.png" width="500">
 
-Use the module variables to specify a filename with custom function code (`source_file`) and CloudFront event ('event_type').
+Use the module variables to specify a filename with custom function code (`source_file`) and CloudFront event (`event_type`).
 
 &nbsp;&nbsp;
 
