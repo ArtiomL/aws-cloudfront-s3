@@ -40,9 +40,9 @@ The module creates:
 
 ### Security
 
-The default Lambda@Edge Node.js [function](index.js) is used to add the following [HTTP security](https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/) response headers, triggered by an [Origin Response](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-cloudfront-trigger-events.html) CloudFront event:
+The default Lambda@Edge [function](index.js) is used to add the following [HTTP security](https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/) response headers, triggered by the [Origin Response](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-cloudfront-trigger-events.html) CloudFront event:
 
-```
+```http
 Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 X-XSS-Protection: 1; mode=block
 X-Content-Type-Options: nosniff
