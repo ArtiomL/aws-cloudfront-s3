@@ -35,7 +35,7 @@ The module creates:
 - S3 bucket policy to ensure CloudFront OAI has permissions to read files in the S3 bucket, but users don't
 - ACM public SSL/TLS certificate for your domain, using [DNS validation](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html)
 - CNAME record for ACM validation
-- CloudFront [distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html) with an S3 origin
+- CloudFront [distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html) with IPv6, TLS, SNI and [HTTP/2](https://css-tricks.com/http2-real-world-performance-test-analysis/) support targeting an S3 origin
 - Lambda@Edge [function](index.js) to [customize](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-at-the-edge.html) the content CloudFront delivers
 
 ### Security
@@ -56,7 +56,7 @@ Scanning the website with [HTTP Observatory](https://observatory.mozilla.org/) r
 
 <img src="img/ap.png" width="500">
 
-Use the module input variables to specify a filename with custom function code (`source_file`) and CloudFront event (`event_type`).
+Use the module input variables to specify a filename with custom function code (`source_file`) and the CloudFront event (`event_type`) to trigger it.
 
 &nbsp;&nbsp;
 
