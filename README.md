@@ -10,6 +10,7 @@
 ## Table of Contents
 - [Description](#description)
 	- [Architecture](#architecture)
+	- [Security](#security)
 - [Input Variables](#input-variables)
 - [Output Values](#output-values)
 - [Example](#example)
@@ -36,6 +37,20 @@ The module creates:
 - CNAME record for ACM validation
 - CloudFront [distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-working-with.html) with an S3 origin
 - Lambda@Edge [function](index.js) to [customize](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-at-the-edge.html) the content CloudFront delivers
+
+### Security
+
+The default Lambda@Edge Node.js [function](index.js) is used to add the following [HTTP security](https://aws.amazon.com/blogs/networking-and-content-delivery/adding-http-security-headers-using-lambdaedge-and-amazon-cloudfront/) response headers, triggered by an [Origin Response](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-cloudfront-trigger-events.html) CloudFront event:
+
+```
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Referrer-Policy: no-referrer
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self';
+Feature-Policy: geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; speaker 'self'; vibrate 'none'; fullscreen 'self'; payment 'none';
+```
 
 
 &nbsp;&nbsp;
