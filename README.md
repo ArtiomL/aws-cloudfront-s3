@@ -24,7 +24,7 @@ Terraform AWS module to provision CloudFront CDN and securely serve HTTPS reques
 
 ### Architecture
 
-<img align="center" src="img/arc.png">
+<p align="center"><img src="img/arc.png"></p>
 
 The module creates:
 
