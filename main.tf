@@ -106,6 +106,11 @@ resource "aws_iam_role" "lambda" {
   ))}"
 }
 
+resource "aws_iam_role_policy_attachment" "lambda" {
+  role       = "${aws_iam_role.lambda.name}"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
 # ACM
 resource "aws_acm_certificate" "main" {
   provider          = "aws.us_east_1"
