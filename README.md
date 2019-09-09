@@ -94,6 +94,7 @@ Use the module input variables to specify a filename with custom function code (
 | tags\_shared | Other tags assigned to all resources | map | `<map>` | no |
 | viewer\_protocol\_policy | The protocol users can use to access the origin files (allow-all, https-only, redirect-to-https) | string | `"redirect-to-https"` | no |
 | wait\_for\_deployment | Wait for the distribution status to change from InProgress to Deployed | string | `"false"` | no |
+| web\_acl\_id | AWS WAF Web ACL ID | string | `""` | no |
 | zone\_id | Route 53 zone ID | string | n/a | yes |
 
 &nbsp;&nbsp;
@@ -102,6 +103,7 @@ Use the module input variables to specify a filename with custom function code (
 
 | Name | Description |
 |------|-------------|
+| alias\_fqdn | DNS alias record FQDN |
 | bucket\_id | S3 bucket name |
 | bucket\_regional | S3 bucket region-specific domain name, also used as CloudFront Origin ID |
 | cert\_arn | ACM certificate ARN |
