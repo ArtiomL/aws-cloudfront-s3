@@ -211,6 +211,7 @@ resource "aws_cloudfront_distribution" "main" {
   }
 
   wait_for_deployment = "${var.wait_for_deployment}"
+  web_acl_id          = "${var.web_acl_id}"
 
   tags = "${merge(local.tags, var.tags_shared, map(
     "Name", "dist${var.tag_name}${var.tag_environment}"
