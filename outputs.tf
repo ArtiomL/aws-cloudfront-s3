@@ -34,3 +34,8 @@ output "dist_zone_id" {
   description = "CloudFront zone ID that can be used to point Route 53 alias records to"
   value       = "${aws_cloudfront_distribution.main.hosted_zone_id}"
 }
+
+output "alias_fqdn" {
+  description = "DNS alias record FQDN"
+  value       = "${aws_route53_record.main.fqdn}"
+}
