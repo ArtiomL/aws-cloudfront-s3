@@ -114,6 +114,11 @@ variable "wait_for_deployment" {
   default     = "false"
 }
 
+variable "web_acl_id" {
+  description = "AWS WAF Web ACL"
+  default     = ""
+}
+
 # Lambda@Edge
 variable "source_file" {
   description = "Package this file into the function archive (index.js local to the module path is used by default)"
