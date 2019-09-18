@@ -75,7 +75,7 @@ data "aws_iam_policy_document" "main" {
 
     principals {
       type        = "AWS"
-      identifiers = ["${replace(aws_cloudfront_origin_access_identity.main.iam_arn, " ", "_")}"]
+      identifiers = ["${aws_cloudfront_origin_access_identity.main.iam_arn}"]
     }
 
     actions   = ["s3:GetObject"]
