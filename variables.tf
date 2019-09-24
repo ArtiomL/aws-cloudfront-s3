@@ -33,7 +33,7 @@ variable "is_ipv6_enabled" {
 
 variable "minimum_protocol_version" {
   description = "The minimum TLS version that you want CloudFront to use for HTTPS connections"
-  default     = "TLSv1_2016"
+  default     = "TLSv1.2_2018"
 }
 
 variable "log_days" {
