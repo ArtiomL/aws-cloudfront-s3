@@ -84,7 +84,7 @@ Use the module input variables to specify a filename with custom function code (
 | log\_days | The number of days to keep the log files | string | `"7"` | no |
 | max\_ttl | Maximum amount of time an object is in a CloudFront cache | string | `"86400"` | no |
 | min\_ttl | Minimum amount of time you want objects to stay in CloudFront caches | string | `"0"` | no |
-| minimum\_protocol\_version | The minimum TLS version that you want CloudFront to use for HTTPS connections | string | `"TLSv1_2016"` | no |
+| minimum\_protocol\_version | The minimum TLS version that you want CloudFront to use for HTTPS connections | string | `"TLSv1.2_2018"` | no |
 | origin\_path | Causes CloudFront to request content from a directory in your S3 bucket | string | `""` | no |
 | price\_class | The price class for this distribution (PriceClass_All, PriceClass_200, PriceClass_100) | string | `"PriceClass_All"` | no |
 | runtime | Function runtime identifier | string | `"nodejs8.10"` | no |
@@ -120,10 +120,10 @@ Use the module input variables to specify a filename with custom function code (
 # S3, IAM, ACM, CloudFront
 module "aws_cloudfront_s3" {
   source          = "github.com/ArtiomL/aws-cloudfront-s3"
-  aws_region      = "us-east-1"
+  aws_region      = "eu-north-1"
   domain_name     = "artl.dev"
   source_file     = "custom.js"
-  zone_id         = "${aws_route53_zone.main.zone_id}"
+  zone_id         = aws_route53_zone.main.zone_id
   tag_name        = "AWSLabs"
   tag_environment = "Dev"
 }
