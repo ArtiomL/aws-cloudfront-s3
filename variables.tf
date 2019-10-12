@@ -73,13 +73,13 @@ variable "viewer_protocol_policy" {
 
 variable "allowed_methods" {
   description = "Controls which HTTP methods CloudFront processes and forwards to your S3 bucket"
-  type        = "list"
+  type        = list(string)
   default     = ["GET", "HEAD"]
 }
 
 variable "cached_methods" {
   description = "Controls whether CloudFront caches responses to requests using the specified HTTP methods"
-  type        = "list"
+  type        = list(string)
   default     = ["GET", "HEAD"]
 }
 
@@ -105,7 +105,7 @@ variable "geo_restriction_type" {
 
 variable "geo_restriction_locations" {
   description = "ISO 3166-1-alpha-2 country codes"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -158,7 +158,7 @@ variable "tag_environment" {
 
 variable "tags_shared" {
   description = "Other tags assigned to all resources"
-  type        = "map"
+  type        = map(string)
 
   default = {
     Owner        = "T.Durden"
@@ -168,3 +168,4 @@ variable "tags_shared" {
     Project      = "Mayhem"
   }
 }
+
