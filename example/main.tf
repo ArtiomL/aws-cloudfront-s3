@@ -24,3 +24,4 @@ module "slack" {
   message_text = "Deployed: ${module.aws_cloudfront_s3.alias_fqdn} as ${module.aws_cloudfront_s3.dist_domain}"
   webhook_url  = "T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
 }
+
