@@ -132,7 +132,7 @@ variable "handler" {
 
 variable "runtime" {
   description = "Function runtime identifier"
-  default     = "nodejs8.10"
+  default     = "nodejs10.x"
 }
 
 variable "event_type" {
