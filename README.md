@@ -87,7 +87,7 @@ Use the module input variables to specify a filename with custom function code (
 | minimum\_protocol\_version | The minimum TLS version that you want CloudFront to use for HTTPS connections | string | `"TLSv1.2_2018"` | no |
 | origin\_path | Causes CloudFront to request content from a directory in your S3 bucket | string | `""` | no |
 | price\_class | The price class for this distribution (PriceClass_All, PriceClass_200, PriceClass_100) | string | `"PriceClass_All"` | no |
-| runtime | Function runtime identifier | string | `"nodejs8.10"` | no |
+| runtime | Function runtime identifier | string | `"nodejs10.x"` | no |
 | source\_file | Package this file into the function archive (index.js local to the module path is used by default) | string | `""` | no |
 | tag\_environment | Environment tag | string | `"Prod"` | no |
 | tag\_name | Name tag | string | `"AWSLabs"` | no |
