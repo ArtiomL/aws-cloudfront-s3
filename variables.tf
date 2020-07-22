@@ -115,7 +115,7 @@ variable "wait_for_deployment" {
 }
 
 variable "web_acl_id" {
-  description = "AWS WAF Web ACL ID"
+  description = "AWS WAFv2 Web ACL ARN"
   default     = ""
 }
 
